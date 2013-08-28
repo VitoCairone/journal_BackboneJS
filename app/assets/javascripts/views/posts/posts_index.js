@@ -7,10 +7,11 @@ Journal.Views.PostsIndex = Backbone.View.extend({
 		var that = this;
 
 		var renderCallback = that.render.bind(that);
+		var renderSidebarCallback = that.renderSidebar.bind(that);
 
 		that.listenTo(that.collection, "remove", renderCallback);
 		that.listenTo(that.collection, "add", renderCallback);
-		that.listenTo(that.collection, "change:title", renderCallback);
+		that.listenTo(that.collection, "change", renderSidebarCallback);
 		that.listenTo(that.collection, "reset", renderCallback);
 
 	},
@@ -20,11 +21,20 @@ Journal.Views.PostsIndex = Backbone.View.extend({
 	render: function() {
 		var that = this;
 		that.$el.html(that.template({ posts: that.collection }));
+		console.log(that.$el);
 		$("#content").empty();
 		return that;
 	},
 
+	renderSidebar: function() {
+		var that = this;
+		this.$el.html(that.template({ posts: that.collection }));
+
+		return that;
+	},
+
 	handleRemove: function(event) {
+		console.log("called handleRemove")
 		event.preventDefault();
 		var model_id = $(event.currentTarget).attr("data-id");
 		var delete_post = this.collection.get(model_id);
