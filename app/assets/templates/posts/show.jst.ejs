@@ -1,0 +1,21 @@
+<div class="title"><h2><%= post.escape("title") %></h2></div>
+<br>
+<div class="postbody"><%= post.escape("body") %></div>
+<br>
+
+<button id="show-edit-form">Edit</button>
+
+<div id="form-container" class="hidden">
+Edit Post Form
+<form class="edit-post">
+  <label for="post_title">Title</label>
+  <input type="text" name="post[title]" id="post_title" value="<%= post.escape("title") %>">
+  <br>
+  <label for="post_body">Body</label>
+  <input type="text" name="post[body]" id="post_body" value="<%= post.escape("body") %>">
+  <br>
+  <input type="submit" value="Edit Post" id="post_submit">
+</form>
+</div>
+
+<a href="#/">Back</a>
